@@ -10,3 +10,7 @@ terraform {
 provider "aws" {
   region = "eu-central-2"
 }
+
+module "cloudflare" {
+  source = "./modules/cloudflare"
+}
