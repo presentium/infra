@@ -5,6 +5,11 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket = "presentium-tfstate-nearly-good-boa"
+    key    = "presentium/terraform.tfstate"
+  }
 }
 
 provider "aws" {
