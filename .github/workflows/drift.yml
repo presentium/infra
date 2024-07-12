@@ -21,9 +21,10 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_ARN }}
-          role-session-name: terraform-check
 
       - name: Check for drift
         uses: dflook/terraform-check@v1
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         with:
           path: terraform

@@ -22,7 +22,6 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_ARN }}
-          role-session-name: terraform-fmt-check
 
       - name: terraform fmt
         uses: dflook/terraform-fmt-check@v1
@@ -41,7 +40,6 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_ARN }}
-          role-session-name: terraform-validate
 
       - name: terraform validate
         uses: dflook/terraform-validate@v1
