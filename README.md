@@ -6,8 +6,10 @@ Infrastructure for deploying the Presentium API and dashboard on the cloud.
 
 The infrastructure is deployed using GitHub Actions. The workflow is defined in `.github/workflows/terraform-apply.yml`.
 
-The default branch therefore is `dev`, and the `main` branch is protected.
-When an infrastructure change is ready to be deployed, a pull request should be made from `dev` to `main`.
+The `production` branch is the one that will be applied when modified.
+
+The default branch therefore is `dev`, and the `production` branch is protected.
+When an infrastructure change is ready to be deployed, a pull request should be made from `dev` to `production`.
 
 ## Contributing
 
