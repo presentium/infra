@@ -2,7 +2,7 @@
 
 Infrastructure for deploying the Presentium API and dashboard on the cloud.
 
-## Continus Delivery
+## Continuous Delivery
 
 The infrastructure is deployed using GitHub Actions. The workflow is defined in `.github/workflows/terraform-apply.yml`.
 
