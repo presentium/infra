@@ -8,8 +8,8 @@ The infrastructure is deployed using GitHub Actions. The workflow is defined in 
 
 The `production` branch is the one that will be applied when modified.
 
-The default branch therefore is `dev`, and the `production` branch is protected.
-When an infrastructure change is ready to be deployed, a pull request should be made from `dev` to `production`.
+The default branch therefore is `main`, and the `production` branch is protected.
+When an infrastructure change is ready to be deployed, a pull request should be made from `main` to `production`.
 
 ## Contributing
 
