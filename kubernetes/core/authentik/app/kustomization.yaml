@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: core-authentik
+
+labels:
+  - includeSelectors: true
+    pairs:
+      app.kubernetes.io/name: authentik
+      app.kubernetes.io/instance: authentik
+      app.kubernetes.io/component: app
+  - pairs:
+      app.kubernetes.io/version: 2024.6.2
+
+images:
+  - name: ghcr.io/goauthentik/server
+    newTag: 2024.6.2
+
+resources:
+  # TODO [lh]
+  # - authentik-credentials-ssec.yaml
+  # - authentik-ing.yaml
+  - authentik-sa.yaml
+  - authentik-crole.yaml
+  - authentik-crb.yaml
+  - authentik-server-depl.yaml
+  - authentik-worker-depl.yaml
+  - authentik-svc.yaml
+  - authentik-ing.yaml

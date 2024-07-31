@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentik
+spec:
+  type: ClusterIP
+  selector: { }
+  ports:
+    - name: http-metrics
+      targetPort: http-metrics
+      port: 9100
+    - name: http-authentik
+      targetPort: http-authentik
+      port: 80
+    - name: https-authentik
+      targetPort: https-authentik
+      port: 443
