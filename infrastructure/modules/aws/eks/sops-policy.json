@@ -1,0 +1,17 @@
+{
+  "Sid": "Allow use of the key",
+  "Effect": "Allow",
+  "Action": [
+    "kms:Encrypt",
+    "kms:Decrypt",
+    "kms:ReEncrypt*",
+    "kms:GenerateDataKey*",
+    "kms:DescribeKey"
+  ],
+  "Resource": "*",
+  "Principal": {
+    "AWS": [
+      "arn:aws:iam::927034868273:role/sops-dev-xyz"
+    ]
+  }
+}

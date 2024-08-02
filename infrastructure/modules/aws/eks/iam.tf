@@ -2,7 +2,7 @@ module "vpc_cni_irsa" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
   #role_name = "vpc-cni-${var.environment}"
-  role_name = "MORP-VPC-CNI-${upper(local.cluster_name)}"
+  role_name = "PRES-VPC-CNI-${upper(local.cluster_name)}"
 
   attach_vpc_cni_policy = true
   vpc_cni_enable_ipv4   = true
@@ -14,3 +14,4 @@ module "vpc_cni_irsa" {
     }
   }
 }
+

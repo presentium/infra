@@ -78,11 +78,11 @@ module "karpenter" {
   iam_role_use_name_prefix = false
 
   create_node_iam_role          = true
-  iam_role_name                 = "MORP-KARPENTER-IRSA-${upper(local.cluster_name)}"
+  iam_role_name                 = "PRES-KARPENTER-IRSA-${upper(local.cluster_name)}"
   iam_role_description          = "Karpenter IAM role for service account"
-  iam_policy_name               = "MORP-KARPENTER-IRSA-${upper(local.cluster_name)}"
+  iam_policy_name               = "PRES-KARPENTER-IRSA-${upper(local.cluster_name)}"
   iam_policy_description        = "Karpenter IAM role for service account"
-  node_iam_role_name            = "MORP-KARPENTER-${upper(local.cluster_name)}"
+  node_iam_role_name            = "PRES-KARPENTER-${upper(local.cluster_name)}"
   node_iam_role_use_name_prefix = false
   enable_irsa                   = true
   create_iam_role               = true

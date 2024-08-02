@@ -8,9 +8,9 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "~> 4.0"
     }
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.14"
+    kustomization = {
+      source  = "kbst/kustomization"
+      version = "~> 0.9"
     }
   }
 
@@ -35,14 +35,17 @@ provider "cloudflare" {
   api_key = var.cloudflare_api_key
 }
 
-provider "helm" {
-  kubernetes {
-    host                   = module.eks.custer_endpoint
-    cluster_ca_certificate = base64decode(module.eks.cluster_ca_certificate)
-    token                  = module.eks.cluster_token
-    load_config_file       = false
-  }
+provider "kustomization" {
 }
+
+# provider "helm" {
+#   kubernetes {
+#     host                   = module.eks.custer_endpoint
+#     cluster_ca_certificate = base64decode(module.eks.cluster_ca_certificate)
+#     token                  = module.eks.cluster_token
+#     load_config_file       = false
+#   }
+# }
 
 ##########################################
 ## Infrastructure components
@@ -89,9 +92,6 @@ module "cloudflare" {
 module "argocd" {
   source = "./modules/argocd"
   providers = {
-    helm = helm
+    kustomization = kustomization
   }
-
-  github_oauth_client_id     = var.argocd_github_oauth_client_id
-  github_oauth_client_secret = var.argocd_github_oauth_client_secret
 }

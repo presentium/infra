@@ -9,17 +9,10 @@ They are defined in independent directories, as follows:
 
 - `infrastructure`: The base infrastructure code defined using Terraform, it is the foundation for the other contexts.
   It manages the Cloudflare settings, AWS VPC, AWS EKS, AWS IAM, etc. It also deploys ArgoCD
-  on the cluster.
-- `kubernetes`: Kubernetes resource management on the cluster, this is the base directory used by ArgoCD for deploying
-  the resources.
+  on the cluster. Continuously delivered using GitHub Actions from the `production` branch.
 - `applications`: Terraform modules for configuring specific application of the infrastructure, such as Authentik for
-  the SSO page and authentication providers, and Hashicorp Vault for the reader device PKI exchange.
-
-`infrastructure` and `applications` are continuously delivered using GitHub Actions, using the `production` branch as
-the target for deployment. They are separate contexts since applications configuration might depend on resources created
-by other contexts and could require manual intervention (for example, setting up API tokens).
-
-`kubernetes` is entirely managed by ArgoCD, usually tracking the `HEAD` branch.
+  the SSO page and authentication providers, and Hashicorp Vault for the reader device PKI exchange. Delivered
+  automatically using GitHub Actions from the `production` branch, triggered by ArgoCD after deployments.
 
 ## Variables and secrets
 
