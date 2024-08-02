@@ -1,19 +1,9 @@
 name: Setup terraform environment
 description: Checkout and configure the CI environment for terraform
 
-inputs:
-  branch:
-    description: 'The branch to checkout'
-    required: false
-
 runs:
   using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        ref: ${{ inputs.branch }}
-
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
       with:

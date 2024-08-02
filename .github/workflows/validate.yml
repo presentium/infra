@@ -19,6 +19,9 @@ jobs:
         context: [ infrastructure, applications ]
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup env
         uses: ./.github/actions/setup
 
@@ -36,6 +39,9 @@ jobs:
         context: [ infrastructure, applications ]
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup env
         uses: ./.github/actions/setup
 
