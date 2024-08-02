@@ -22,8 +22,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup env
-        uses: ./.github/actions/setup
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_ARN }}
 
       - name: terraform fmt
         uses: dflook/terraform-fmt-check@v1
@@ -42,8 +45,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup env
-        uses: ./.github/actions/setup
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_ARN }}
 
       - name: terraform validate
         uses: dflook/terraform-validate@v1

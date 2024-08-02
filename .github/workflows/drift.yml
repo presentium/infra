@@ -25,8 +25,17 @@ jobs:
         with:
           ref: ${{ matrix.branch }}
 
-      - name: Setup env
-        uses: ./.github/actions/setup
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_ARN }}
+
+      - name: Add environment variables
+        shell: bash
+        run: |-
+          echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/.tfvars
+          echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/.tfvars
 
       - name: Check for drift
         uses: dflook/terraform-check@v1

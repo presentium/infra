@@ -44,6 +44,8 @@ jobs:
         if: steps.changes.outputs.context == 'true'
         uses: ./.github/actions/push-docker-image
         with:
+          actor: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           registry: ${{ env.REGISTRY }}
           image-namespace: ${{ github.repository_owner }}
           image-name: ${{ matrix.image.name }}

@@ -18,8 +18,16 @@ jobs:
         with:
          ref: production
 
-      - name: Setup env
-        uses: ./.github/actions/setup
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_ARN }}
+
+      - name: Add environment variables
+        shell: bash
+        run: |-
+          echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/.tfvars
 
       - name: terraform apply
         uses: dflook/terraform-apply@v1
