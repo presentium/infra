@@ -33,8 +33,8 @@ jobs:
       - name: Add environment variables
         shell: bash
         run: |-
-          echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/.tfvars
-          echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/.tfvars
+          echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/secrets.auto.tfvars
+          echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/secrets.auto.tfvars
 
       - uses: dorny/paths-filter@v3
         id: changes

@@ -31,8 +31,7 @@ jobs:
       - name: Add environment variables
         shell: bash
         run: |-
-          echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/.tfvars
-          echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/.tfvars
+          echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/secrets.auto.tfvars
 
       - name: terraform apply
         uses: dflook/terraform-apply@v1
