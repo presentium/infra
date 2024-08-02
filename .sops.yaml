@@ -1,0 +1,7 @@
+creation_rules:
+  - path_regex: kubernetes/.*\.sops\.ya?ml$
+    unencrypted_regex: "^(kind)$"
+    # TODO [lh] [sb]
+    kms: 'arn:aws:kms:eu-west-1:'
+    age: >-
+      age1889ep8dshl0c50e4a05j2ny7z64h3qdpcprx3v2fqqe5r67ln9nqjfj3ae

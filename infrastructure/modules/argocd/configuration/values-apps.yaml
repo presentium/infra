@@ -1,0 +1,75 @@
+projects:
+  global:
+    namespace: argocd
+    description: Project for global resources
+    sourceRepos:
+      - https://github.com/presentium/infrastructure
+    sourceNamespaces:
+      - 'system'
+      - 'core'
+    destinations:
+      - namespace: 'system-*'
+        server: '*'
+      - namespace: 'core-*'
+        server: '*'
+      - namespace: 'argocd'
+        server: '*'
+    clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+  presentium-staging:
+    namespace: argocd
+    description: Project for staging-scoped resources
+    sourceRepos:
+      - https://github.com/presentium/infrastructure
+      - https://github.com/presentium/api
+    sourceNamespaces:
+      - 'apps'
+    destinations:
+      - namespace: '*'
+        server: 'staging-*'
+    clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+  presentium-production:
+    namespace: argocd
+    description: Project for production-scoped resources
+    sourceRepos:
+      - https://github.com/presentium/infrastructure
+      - https://github.com/presentium/api
+    sourceNamespaces:
+      - 'apps'
+    destinations:
+      - namespace: 'prod-*'
+        server: '*'
+    clusterResourceWhitelist:
+      - group: '*'
+        kind: '*'
+
+applications:
+  apps:
+    namespace: argocd
+    project: global
+    source:
+      repoURL: 'https://github.com/presentium/infrastructure'
+      targetRevision: production
+      path: kubernetes/_applications/apps
+    destination:
+      name: in-cluster
+      namespace: apps
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true
+  core:
+    namespace: argocd
+    project: global
+    source:
+      repoURL: 'https://github.com/presentium/infrastructure'
+      targetRevision: production
+      path: kubernetes/_applications/core
+    destination:
+      name: in-cluster
+      namespace: core
+    syncPolicy:
+      syncOptions:
+        - CreateNamespace=true

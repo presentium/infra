@@ -1,0 +1,25 @@
+name: Apply applications configuration
+
+on: [ workflow_dispatch ]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    name: Apply the terraform plan
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Setup env
+        uses: ./.github/actions/setup
+        with:
+          branch: production
+
+      - name: terraform apply
+        uses: dflook/terraform-apply@v1
+        with:
+          path: applications
+          auto_approve: true

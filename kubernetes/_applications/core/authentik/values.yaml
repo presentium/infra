@@ -1,0 +1,18 @@
+authentik:
+  error_reporting:
+    enabled: false
+
+server:
+  replicas: 1
+  ingress:
+    # TODO [lh] [sb]
+    enabled: false
+
+worker:
+  replicas: 1
+
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: false

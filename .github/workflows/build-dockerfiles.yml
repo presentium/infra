@@ -1,0 +1,52 @@
+name: Build Dockerfiles
+
+on:
+  push:
+    branches:
+      - production
+    paths:
+      - 'dockerfiles/**'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+    name: Build and push custom Dockerfiles
+
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - { name: 'argocd', tag: 'v2.11.7', args: [ 'ARGOCD_VERSION=v2.11.7' ] }
+
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          base: ${{ github.event.before }}
+          filters: |-
+            context:
+              - 'dockerfiles/${{ matrix.image.name }}.Dockerfile'
+
+      - name: Build image
+        if: steps.changes.outputs.context == 'true'
+        uses: ./.github/actions/push-docker-image
+        with:
+          registry: ${{ env.REGISTRY }}
+          image-namespace: ${{ github.repository_owner }}
+          image-name: ${{ matrix.image.name }}
+          image-tag: ${{ matrix.image.tag }}
+          build-args: ${{ matrix.image.args }}
+
