@@ -8,7 +8,7 @@ terraform {
 
 resource "null_resource" "argocd_apply_once" {
   triggers = {
-    static = "poorly-social-pigeon"
+    static = "deeply-lucky-mako"
   }
 
   provisioner "local-exec" {
