@@ -1,0 +1,36 @@
+name: Apply applications configuration
+
+on: [ workflow_dispatch ]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    name: Apply the terraform plan
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+         ref: production
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_ARN }}
+
+      - name: Add environment variables
+        shell: bash
+        run: |-
+          echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/secrets.auto.tfvars
+
+      - name: terraform apply
+        uses: dflook/terraform-apply@v1
+        with:
+          path: applications
+          auto_approve: true

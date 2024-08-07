@@ -1,1 +1,3 @@
 * @presentium/infrastructure
+applications/modules/authentik/* @lutonite
+applications/modules/vault/* @DACC4

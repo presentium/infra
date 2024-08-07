@@ -6,13 +6,18 @@ on:
       - production
 
 permissions:
-  id-token: write
   contents: read
+  id-token: write
 
 jobs:
   fmt-check:
     runs-on: ubuntu-latest
     name: Check formatting of terraform files
+
+    strategy:
+      matrix:
+        context: [ infrastructure, applications ]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,11 +31,16 @@ jobs:
       - name: terraform fmt
         uses: dflook/terraform-fmt-check@v1
         with:
-          path: terraform
+          path: ${{ matrix.context }}
 
   validate:
     runs-on: ubuntu-latest
     name: Validate terraform configuration
+
+    strategy:
+      matrix:
+        context: [ infrastructure, applications ]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -44,4 +54,4 @@ jobs:
       - name: terraform validate
         uses: dflook/terraform-validate@v1
         with:
-          path: terraform
+          path: ${{ matrix.context }}

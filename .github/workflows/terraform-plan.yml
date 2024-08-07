@@ -1,6 +1,6 @@
 name: Create terraform plan
 
-on: [pull_request]
+on: [ pull_request ]
 
 permissions:
   contents: read
@@ -11,21 +11,40 @@ jobs:
   plan:
     runs-on: ubuntu-latest
     name: Create a plan for the terraform configuration
+
+    strategy:
+      fail-fast: false
+      matrix:
+        context: [ infrastructure, applications ]
+
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_ARN }}
 
+      - name: Add environment variables
+        shell: bash
+        run: |-
+          echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/secrets.auto.tfvars
+          echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/secrets.auto.tfvars
+
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |-
+            context:
+              - '${{ matrix.context }}/**'
+
       - name: terraform plan
         uses: dflook/terraform-plan@v1
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        if: steps.changes.outputs.context == 'true'
         with:
-          path: terraform
+          path: ${{ matrix.context }}
