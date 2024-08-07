@@ -1,4 +1,4 @@
-ARG ARGOCD_VERSION="v2.11.7"
+ARG ARGOCD_VERSION="latest"
 FROM quay.io/argoproj/argocd:$ARGOCD_VERSION
 
 ARG SOPS_VERSION=3.9.0
@@ -10,9 +10,9 @@ ENV HELM_SECRETS_BACKEND="sops" \
     HELM_SECRETS_HELM_PATH=/usr/local/bin/helm \
     HELM_PLUGINS="/home/argocd/.local/share/helm/plugins/" \
     HELM_SECRETS_VALUES_ALLOW_SYMLINKS=false \
-    HELM_SECRETS_VALUES_ALLOW_ABSOLUTE_PATH=false \
+    HELM_SECRETS_VALUES_ALLOW_ABSOLUTE_PATH=true \
     HELM_SECRETS_VALUES_ALLOW_PATH_TRAVERSAL=false \
-    HELM_SECRETS_WRAPPER_ENABLED=false \
+    HELM_SECRETS_WRAPPER_ENABLED=true \
     HELM_PLUGINS=/gitops-tools/helm-plugins/ \
     HELM_SECRETS_CURL_PATH=/gitops-tools/curl \
     HELM_SECRETS_SOPS_PATH=/gitops-tools/sops \
