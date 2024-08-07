@@ -1,8 +1,7 @@
 module "vpc_cni_irsa" {
   source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
 
-  #role_name = "vpc-cni-${var.environment}"
-  role_name = "PRES-VPC-CNI-${upper(local.cluster_name)}"
+  role_name = "PRES-VPC-CNI-${upper(module.eks.cluster_name)}"
 
   attach_vpc_cni_policy = true
   vpc_cni_enable_ipv4   = true
@@ -15,3 +14,35 @@ module "vpc_cni_irsa" {
   }
 }
 
+module "sops_kms_irsa" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+
+  role_name = "PRES-SOPS-KMS-${upper(module.eks.cluster_name)}"
+  role_policy_arns = {
+    sops = aws_iam_policy.sops_policy.arn
+  }
+
+  oidc_providers = {
+    main = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["argocd:argocd-repo-server"]
+    }
+  }
+}
+
+module "dbconnect_irsa" {
+  for_each = local.database_users
+  source   = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+
+  role_name = "PRES-DB-${upper(each.key)}-${upper(module.eks.cluster_name)}"
+  role_policy_arns = {
+    rds = aws_iam_policy.rds_policy[each.key].arn
+  }
+
+  oidc_providers = {
+    main = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = [each.value["service_account"]]
+    }
+  }
+}

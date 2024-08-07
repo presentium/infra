@@ -61,6 +61,22 @@ module "eks" {
     },
   }
 
+  access_entries = {
+    admins = {
+      kubernetes_groups = []
+      principal_arn     = var.iam_admin_role_arn
+
+      policy_associations = {
+        example = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    }
+  }
+
   tags = { "karpenter.sh/discovery" = local.cluster_name }
 }
 

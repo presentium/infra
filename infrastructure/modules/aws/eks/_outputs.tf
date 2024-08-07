@@ -13,3 +13,13 @@ output "cluster_token" {
   value       = data.aws_eks_cluster_auth.this.token
   sensitive   = true
 }
+
+output "sops_irsa_arn" {
+  description = "IAM role ARN for SOPS KMS"
+  value       = module.sops_kms_irsa.iam_role_arn
+}
+
+output "db_irsa_arns" {
+  description = "IAM role ARNs for database connections"
+  value       = { for key, val in module.dbconnect_irsa : key => val.iam_role_arn }
+}

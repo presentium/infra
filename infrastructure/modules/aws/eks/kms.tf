@@ -6,4 +6,6 @@ module "kms" {
   is_enabled              = true
   key_usage               = "ENCRYPT_DECRYPT"
   enable_default_policy   = true
+
+  aliases = ["presentium/eks", "presentium/sops"]
 }

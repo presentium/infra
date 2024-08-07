@@ -1,56 +1,3 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.60"
-    }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 4.0"
-    }
-    kustomization = {
-      source  = "kbst/kustomization"
-      version = "~> 0.9"
-    }
-  }
-
-  backend "s3" {
-    bucket = "presentium-tfstate-nearly-good-boa"
-    key    = "presentium/terraform.tfstate"
-  }
-
-  required_version = ">= 1.9.0"
-}
-
-// Provider configuration
-
-provider "aws" {
-  region = var.aws_region
-  assume_role {
-    role_arn = var.aws_arn
-  }
-}
-
-provider "cloudflare" {
-  api_token = var.cloudflare_api_key
-}
-
-provider "kustomization" {
-}
-
-# provider "helm" {
-#   kubernetes {
-#     host                   = module.eks.custer_endpoint
-#     cluster_ca_certificate = base64decode(module.eks.cluster_ca_certificate)
-#     token                  = module.eks.cluster_token
-#     load_config_file       = false
-#   }
-# }
-
-##########################################
-## Infrastructure components
-##########################################
-
 ## AWS
 
 module "vpc" {
@@ -66,9 +13,28 @@ module "eks" {
     aws = aws
   }
 
+  cluster_name = local.project_name
+
+  rds_database_name = "db-${local.project_name}"
+
+  iam_admin_role_arn = module.iam.eks_admin_role_arn
+
+  vpc_id         = module.vpc.vpc_id
   intra_subnet   = module.vpc.intra_subnet
   private_subnet = module.vpc.private_subnet_secondary_cidr.ids
-  vpc_id         = module.vpc.vpc_id
+}
+
+module "rds" {
+  source = "./modules/aws/rds"
+  providers = {
+    aws = aws
+  }
+
+  database_name = "db-${local.project_name}"
+
+  vpc_id                         = module.vpc.vpc_id
+  vpc_private_cidr_blocks        = module.vpc.private_subnets_cidr_blocks
+  vpc_database_subnet_group_name = module.vpc.database_subnet_group_name
 }
 
 module "iam" {
@@ -92,6 +58,8 @@ module "cloudflare" {
 module "argocd" {
   source = "./modules/argocd"
   providers = {
-    kustomization = kustomization
+    aws = aws
   }
+
+  cluster_name = local.project_name
 }
