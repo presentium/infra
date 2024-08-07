@@ -32,6 +32,6 @@ jobs:
           echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/secrets.auto.tfvars
 
       - name: terraform apply
-        uses: dflook/terraform-apply@v1
+        uses: ./.github/actions/terraform-apply
         with:
           path: infrastructure

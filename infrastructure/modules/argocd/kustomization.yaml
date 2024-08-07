@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - https://github.com/presentium/kubernetes//system/karpenter/
   - https://github.com/argoproj/argo-cd//manifests/cluster-install?ref=v2.11.7
-  - https://github.com/presentium/kubernetes//argocd/boostrap.yaml
+  - https://raw.githubusercontent.com/presentium/kubernetes/main/argocd/bootstrap.yaml
