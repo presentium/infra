@@ -1,4 +1,5 @@
-FROM danielflook/terraform-github-actions:v1.44.0
+ARG BASE_VERSION="latest"
+FROM danielflook/terraform-github-actions:$BASE_VERSION
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && ./aws/install
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \

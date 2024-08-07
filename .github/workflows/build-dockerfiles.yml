@@ -18,8 +18,8 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - { name: 'argocd', tag: 'v2.11.7', args: 'ARGOCD_VERSION=v2.11.7' }
-          - { name: 'terraform-actions', tag: 'v1.44.0' }
+          - { name: 'argocd', tag: 'v2.12.0', args: 'ARGOCD_VERSION=v2.12.0' }
+          - { name: 'terraform-actions', tag: 'v1.44.0', args: 'BASE_VERSION=v1.44.0' }
 
     permissions:
       contents: read
@@ -38,9 +38,10 @@ jobs:
           filters: |-
             context:
               - 'dockerfiles/${{ matrix.image.name }}.Dockerfile'
+              - '.github/workflows/build-dockerfiles.yml'
 
       - name: Build image
-        if: steps.changes.outputs.context == 'true'
+        if: github.event_name != 'push' || steps.changes.outputs.context == 'true'
         uses: ./.github/actions/push-docker-image
         with:
           actor: ${{ github.actor }}
