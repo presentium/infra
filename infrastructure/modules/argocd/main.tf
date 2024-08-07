@@ -14,7 +14,7 @@ resource "null_resource" "argocd_apply_once" {
   provisioner "local-exec" {
     command = <<-EOT
       aws eks update-kubeconfig --region ${data.aws_region.current.name} --name ${var.cluster_name} &&
-      kubectl apply -k ${path.module}/kustomization.yaml
+      kustomize build ${path.module} --enable-helm | kubectl apply -f -
     EOT
   }
 }

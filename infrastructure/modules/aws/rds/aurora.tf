@@ -13,7 +13,7 @@ module "database" {
   engine_mode    = "provisioned"
   engine_version = data.aws_rds_engine_version.postgresql.version
 
-  master_username = "admin"
+  master_username = "root"
 
   iam_database_authentication_enabled = true
 
