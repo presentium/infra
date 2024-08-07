@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - production
-    paths:
-      - 'dockerfiles/**'
   workflow_dispatch:
 
 env:
