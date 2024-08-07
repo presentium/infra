@@ -61,6 +61,7 @@ module "eks" {
     },
   }
 
+  enable_cluster_creator_admin_permissions = true
   access_entries = {
     admins = {
       kubernetes_groups = []
@@ -69,19 +70,6 @@ module "eks" {
       policy_associations = {
         admin = {
           policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-          access_scope = {
-            type = "cluster"
-          }
-        }
-      }
-    },
-    cicd = {
-      kubernetes_groups = []
-      principal_arn     = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cicd"
-
-      policy_associations = {
-        edit = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSEditPolicy"
           access_scope = {
             type = "cluster"
           }
