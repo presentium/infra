@@ -40,7 +40,7 @@ jobs:
               - 'dockerfiles/${{ matrix.image.name }}.Dockerfile'
 
       - name: Build image
-        if: github.event_name != 'push' || steps.changes.outputs.context == 'true'
+        if: steps.changes.outputs.context == 'true'
         uses: ./.github/actions/push-docker-image
         with:
           actor: ${{ github.actor }}
