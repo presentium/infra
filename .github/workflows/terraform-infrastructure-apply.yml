@@ -31,15 +31,7 @@ jobs:
         run: |-
           echo "${{ secrets.INFRASTRUCTURE_TFVARS }}" | base64 -d > infrastructure/secrets.auto.tfvars
 
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |-
-            context:
-              - 'infrastructure/**'
-
       - name: terraform apply
         uses: ./.github/actions/terraform-apply
-        if: steps.changes.outputs.context == 'true'
         with:
           path: infrastructure

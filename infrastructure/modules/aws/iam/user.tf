@@ -21,8 +21,8 @@ data "aws_iam_policy_document" "assume_role_policy" {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {
-      identifiers = [for user in keys(local.users) : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"]
       type        = "AWS"
+      identifiers = [for user in keys(local.users) : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/${user}"]
     }
   }
 }
