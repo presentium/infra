@@ -17,7 +17,7 @@ resource "aws_iam_user_policy_attachment" "attach_admin" {
 
 data "aws_iam_policy_document" "assume_role_policy" {
   statement {
-    sid     = "Allow assume for users"
+    sid     = "AllowAssumeRole"
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
     principals {

@@ -4,7 +4,7 @@
 
 data "aws_iam_policy_document" "sops" {
   statement {
-    sid    = "Allow use of the key"
+    sid    = "AllowKeyUsage"
     effect = "Allow"
     actions = [
       "kms:Decrypt",
@@ -31,7 +31,7 @@ data "aws_iam_policy_document" "rds" {
   for_each = local.database_users
 
   statement {
-    sid    = "Allow RDS access"
+    sid    = "AllowRDSAccess"
     effect = "Allow"
     actions = [
       "rds-db:connect",
