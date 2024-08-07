@@ -67,14 +67,27 @@ module "eks" {
       principal_arn     = var.iam_admin_role_arn
 
       policy_associations = {
-        example = {
-          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSViewPolicy"
+        admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
             type = "cluster"
           }
         }
       }
-    }
+    },
+    cicd = {
+      kubernetes_groups = ["system:masters"]
+      principal_arn     = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/cicd"
+
+      policy_associations = {
+        edit = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSEditPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    },
   }
 
   tags = { "karpenter.sh/discovery" = local.cluster_name }

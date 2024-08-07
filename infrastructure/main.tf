@@ -15,8 +15,7 @@ module "eks" {
 
   cluster_name = local.project_name
 
-  rds_database_name = local.project_name
-
+  rds_database_name  = module.rds.cluster_name
   iam_admin_role_arn = module.iam.eks_admin_role_arn
 
   vpc_id         = module.vpc.vpc_id
@@ -61,5 +60,5 @@ module "argocd" {
     aws = aws
   }
 
-  cluster_name = local.project_name
+  eks_cluster_name = module.eks.cluster_name
 }
