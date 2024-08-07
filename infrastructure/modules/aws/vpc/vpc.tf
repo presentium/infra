@@ -14,4 +14,8 @@ module "vpc" {
   database_subnets   = ["10.0.12.0/24", "10.0.13.0/24", "10.0.14.0/24"]
   enable_nat_gateway = true
   single_nat_gateway = true
+
+  # private_subnet_tags = {
+  #   "karpenter.sh/discovery" = "presentium"
+  # }
 }

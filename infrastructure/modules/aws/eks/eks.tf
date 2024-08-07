@@ -47,9 +47,6 @@ module "eks" {
   create_cluster_security_group = false
   create_node_security_group    = false
 
-  cluster_security_group_name            = "eks-cluster-sg-${local.cluster_name}"
-  cluster_security_group_use_name_prefix = false
-
   fargate_profiles = {
     "kube-system" = {
       selectors  = [{ namespace = "kube-system", labels = { "k8s-app" = "kube-dns" } }]
