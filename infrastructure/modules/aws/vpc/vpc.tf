@@ -15,7 +15,7 @@ module "vpc" {
   enable_nat_gateway = true
   single_nat_gateway = true
 
-  # private_subnet_tags = {
-  #   "karpenter.sh/discovery" = "presentium"
-  # }
+  private_subnet_tags = {
+    "karpenter.sh/discovery" = "presentium"
+  }
 }
