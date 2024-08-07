@@ -52,7 +52,7 @@ runs:
       id: push
       with:
         context: dockerfiles
-        file: ./${{ inputs.image-name }}.Dockerfile
+        file: ./dockerfiles/${{ inputs.image-name }}.Dockerfile
         build-args: ${{ inputs.build-args }}
         push: true
         tags: ${{ steps.metadata.outputs.tags }}
