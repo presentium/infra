@@ -12,3 +12,8 @@ output "eks_db_irsa_arns" {
   description = "IAM role ARNs for database connections"
   value       = module.eks.db_irsa_arns
 }
+
+output "acm_certificate_arn" {
+  description = "The ARN of the ACM certificate for ALBs"
+  value       = module.acm.certificate_arn
+}
