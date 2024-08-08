@@ -25,3 +25,9 @@ resource "authentik_application" "presentium" {
   protocol_provider = authentik_provider_oauth2.presentium.id
   meta_icon         = "https://avatars.githubusercontent.com/u/174350723?s=4000&v=4"
 }
+
+resource "authentik_policy_binding" "presentium-access" {
+  target = authentik_application.presentium.uuid
+  group  = authentik_group.students.id
+  order  = 0
+}
