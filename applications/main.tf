@@ -20,10 +20,10 @@ terraform {
 
 // Provider configuration
 
-# provider "authentik" {
-#   token = ""
-#   url   = ""
-#}
+provider "authentik" {
+  url   = var.authentik_url
+  token = var.authentik_api_key
+}
 
 # provider "vault" {
 #   address = ""
@@ -40,9 +40,9 @@ module "authentik" {
   }
 }
 
-module "vault" {
-  source = "./modules/vault"
-  providers = {
-    vault = vault
-  }
-}
+# module "vault" {
+#   source = "./modules/vault"
+#   providers = {
+#     vault = vault
+#   }
+# }
