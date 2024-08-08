@@ -15,6 +15,7 @@ resource "authentik_provider_oauth2" "presentium" {
     data.authentik_scope_mapping.scope-email.id,
     data.authentik_scope_mapping.scope-profile.id,
     data.authentik_scope_mapping.scope-openid.id,
+    data.authentik_scope_mapping.scope-offline-access.id,
     authentik_scope_mapping.scope-roles.id,
   ]
 }

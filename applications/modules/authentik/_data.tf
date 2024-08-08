@@ -20,3 +20,8 @@ data "authentik_scope_mapping" "scope-openid" {
   scope_name = "openid"
   name       = "authentik default OAuth Mapping: OpenID 'openid'"
 }
+
+data "authentik_scope_mapping" "scope-offline-access" {
+  scope_name = "offline_access"
+  name       = "authentik default OAuth Mapping: OpenID 'offline_access'"
+}
