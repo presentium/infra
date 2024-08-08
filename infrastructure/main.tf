@@ -43,6 +43,16 @@ module "iam" {
   }
 }
 
+module "acm" {
+  source = "./modules/aws/acm"
+  providers = {
+    aws        = aws
+    cloudflare = cloudflare
+  }
+
+  cloudflare_domain = module.cloudflare.domain
+}
+
 ## Cloudflare
 
 module "cloudflare" {
