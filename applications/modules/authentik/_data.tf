@@ -17,6 +17,6 @@ data "authentik_scope_mapping" "scope-profile" {
 }
 
 data "authentik_scope_mapping" "scope-openid" {
-  scope_name = "roles"
+  scope_name = "openid"
   name       = "authentik default OAuth Mapping: OpenID 'openid'"
 }
