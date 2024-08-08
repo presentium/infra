@@ -48,4 +48,4 @@ RUN \
 
 RUN chmod +x /gitops-tools/* && ln -sf /gitops-tools/helm-plugins/helm-secrets/scripts/wrapper/helm.sh /usr/local/sbin/helm
 
-USER argocd
+USER $ARGOCD_USER_ID
