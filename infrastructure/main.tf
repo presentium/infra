@@ -15,8 +15,9 @@ module "eks" {
 
   cluster_name = local.project_name
 
-  rds_database_name  = module.rds.cluster_name
-  iam_admin_role_arn = module.iam.eks_admin_role_arn
+  rds_database_name       = module.rds.cluster_name
+  rds_cluster_resource_id = module.rds.cluster_rid
+  iam_admin_role_arn      = module.iam.eks_admin_role_arn
 
   vpc_id         = module.vpc.vpc_id
   intra_subnet   = module.vpc.intra_subnet
