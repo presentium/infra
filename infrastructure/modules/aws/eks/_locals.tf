@@ -10,7 +10,7 @@ locals {
 
   database_users = {
     "authentik"   = { username = "authentik", service_account = "authentik:authentik" },
-    "api-staging" = { username = "${var.cluster_name}-staging", service_account = "staging-${var.cluster_name}:${var.cluster_name}-api" },
-    "api-prod"    = { username = "${var.cluster_name}-prod", service_account = "prod-${var.cluster_name}:${var.cluster_name}-api" }
+    "api-staging" = { username = "${var.cluster_name}_staging", service_account = "staging-${var.cluster_name}:${var.cluster_name}-api" },
+    "api-prod"    = { username = "${var.cluster_name}_prod", service_account = "prod-${var.cluster_name}:${var.cluster_name}-api" }
   }
 }

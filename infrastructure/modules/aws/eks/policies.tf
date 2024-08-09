@@ -37,7 +37,7 @@ data "aws_iam_policy_document" "rds" {
       "rds-db:connect",
     ]
     resources = [
-      "arn:aws:rds-db:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:dbuser:${var.rds_database_name}/${each.value["username"]}",
+      "arn:aws:rds-db:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:dbuser:${var.rds_cluster_resource_id}/${each.value["username"]}",
     ]
   }
 }
