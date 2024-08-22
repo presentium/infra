@@ -2,7 +2,7 @@
 resource "vault_mount" "root" {
   type                      = "pki"
   path                      = "pki-root-ca"
-  default_lease_ttl_seconds = 31536000 # 1 year
+  default_lease_ttl_seconds = 31536000  # 1 year
   max_lease_ttl_seconds     = 157680000 # 5 years
   description               = "Root Certificate Authority"
 }
