@@ -20,7 +20,7 @@ module "ebs_csi_irsa" {
   role_name = "PRES-EBS-CSI-${upper(local.cluster_name)}"
 
   attach_ebs_csi_policy = true
-  ebs_csi_kms_cmk_ids   = [module.kms.key_id]
+  ebs_csi_kms_cmk_ids   = [module.kms.key_arn]
 
   oidc_providers = {
     main = {
