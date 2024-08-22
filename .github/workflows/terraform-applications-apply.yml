@@ -30,7 +30,7 @@ jobs:
           echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/secrets.auto.tfvars
 
       - name: terraform apply
-        uses: dflook/terraform-apply@v1
+        uses: ./.github/actions/terraform-apply
         with:
           path: applications
           auto_approve: true

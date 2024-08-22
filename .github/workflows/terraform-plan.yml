@@ -44,7 +44,7 @@ jobs:
               - '${{ matrix.context }}/**'
 
       - name: terraform plan
-        uses: dflook/terraform-plan@v1
+        uses: ./.github/actions/terraform-plan
         if: steps.changes.outputs.context == 'true'
         with:
           path: ${{ matrix.context }}
