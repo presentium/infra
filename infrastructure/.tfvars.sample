@@ -7,3 +7,6 @@ cloudflare_api_key=""
 # https://docs.aws.amazon.com/ses/latest/dg/send-email-authentication-dkim-bring-your-own.html#send-email-authentication-dkim-bring-your-own-create-key-pair
 dkim_public_key=""
 dkim_private_key=""
+
+vault_oidc_client_id="vault"
+vault_oidc_client_secret=""

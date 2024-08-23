@@ -13,8 +13,8 @@ variable "country" {
 }
 
 variable "oidc_client_id" {
-  description = "Github OIDC Client ID"
+  description = "OIDC Client ID"
 }
 variable "oidc_client_secret" {
-  description = "Github OIDC Client Secret"
+  description = "OIDC Client Secret"
 }

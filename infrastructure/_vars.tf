@@ -19,3 +19,12 @@ variable "dkim_private_key" {
   description = "Private key for DKIM"
   sensitive   = true
 }
+
+variable "vault_oidc_client_id" {
+  description = "Vault OIDC Client ID"
+}
+
+variable "vault_oidc_client_secret" {
+  description = "Vault OIDC Client Secret"
+  sensitive   = true
+}
