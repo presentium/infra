@@ -61,6 +61,22 @@ module "sops_kms_irsa" {
   }
 }
 
+module "vault_kms_irsa" {
+  source = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
+
+  role_name = "PRES-VAULT-KMS-${upper(module.eks.cluster_name)}"
+  role_policy_arns = {
+    vault = aws_iam_policy.vault_policy.arn
+  }
+
+  oidc_providers = {
+    main = {
+      provider_arn               = module.eks.oidc_provider_arn
+      namespace_service_accounts = ["argocd:argocd-repo-server"]
+    }
+  }
+}
+
 module "dbconnect_irsa" {
   for_each = local.database_users
   source   = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
