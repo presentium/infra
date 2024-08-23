@@ -49,3 +49,26 @@ resource "aws_iam_policy" "rds_policy" {
   description = "Provides permissions to connect to RDS"
   policy      = data.aws_iam_policy_document.rds[each.key].json
 }
+
+################################################################################
+# VAULT policy
+################################################################################
+
+data "aws_iam_policy_document" "vault" {
+  statement {
+    sid    = "AllowKeyUsage"
+    effect = "Allow"
+    actions = [
+      "kms:Decrypt",
+      "kms:Encrypt",
+      "kms:DescribeKey"
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "vault_policy" {
+  name_prefix = "${module.eks.cluster_name}-vault-policy-"
+  description = "Provides permissions to use KMS for Vault"
+  policy      = data.aws_iam_policy_document.vault.json
+}
