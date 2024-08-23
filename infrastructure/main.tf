@@ -86,16 +86,3 @@ module "argocd" {
 
   eks_cluster_name = module.eks.cluster_name
 }
-
-
-## Vault
-
-module "vault" {
-  source = "./modules/vault"
-
-  domain             = "presentium.ch"
-  organization       = "Presentium"
-  country            = "CH"
-  oidc_client_id     = var.vault_oidc_client_id
-  oidc_client_secret = var.vault_oidc_client_secret
-}
