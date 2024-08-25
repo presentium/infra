@@ -54,6 +54,16 @@ module "acm" {
   cloudflare_domain = module.cloudflare.domain
 }
 
+module "ses" {
+  source = "./modules/aws/ses"
+  providers = {
+    aws        = aws
+    cloudflare = cloudflare
+  }
+
+  cloudflare_domain = module.cloudflare.domain
+}
+
 ## Cloudflare
 
 module "cloudflare" {

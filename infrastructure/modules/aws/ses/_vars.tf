@@ -1,0 +1,2 @@
+variable "cloudflare_domain" {
+}
