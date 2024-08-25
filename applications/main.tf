@@ -25,10 +25,6 @@ provider "authentik" {
   token = var.authentik_api_key
 }
 
-# provider "vault" {
-#   address = ""
-#}
-
 ##########################################
 ## Application modules
 ##########################################
@@ -40,9 +36,12 @@ module "authentik" {
   }
 }
 
-# module "vault" {
-#   source = "./modules/vault"
-#   providers = {
-#     vault = vault
-#   }
-# }
+module "vault" {
+  source = "./modules/vault"
+
+  domain             = "presentium.ch"
+  organization       = "Presentium"
+  country            = "CH"
+  oidc_client_id     = var.vault_oidc_client_id
+  oidc_client_secret = var.vault_oidc_client_secret
+}

@@ -1,2 +1,5 @@
 authentik_url = ""
 authentik_api_key = ""
+
+vault_oidc_client_id="vault"
+vault_oidc_client_secret=""
