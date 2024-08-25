@@ -3,6 +3,11 @@ output "iam_users" {
   value       = module.iam.iam_users
 }
 
+output "smtp_users" {
+  description = "IAM users for SMTP access (passwords are encrypted using the PGP key)"
+  value       = module.ses.smtp_users
+}
+
 output "eks_sops_kms_role_arn" {
   description = "IAM role ARN for SOPS KMS to add in Kubernetes service accounts"
   value       = module.eks.sops_irsa_arn
