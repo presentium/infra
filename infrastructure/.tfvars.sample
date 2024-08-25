@@ -2,3 +2,8 @@ aws_region="eu-west-1"
 aws_arn=""
 
 cloudflare_api_key=""
+
+# DKIM key with only the base64 encoded string (no armor), generate using documentation provided below.
+# https://docs.aws.amazon.com/ses/latest/dg/send-email-authentication-dkim-bring-your-own.html#send-email-authentication-dkim-bring-your-own-create-key-pair
+dkim_public_key=""
+dkim_private_key=""
