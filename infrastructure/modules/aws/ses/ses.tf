@@ -7,7 +7,7 @@ resource "aws_sesv2_email_identity" "domain" {
   configuration_set_name = aws_sesv2_configuration_set.presentium.configuration_set_name
 
   dkim_signing_attributes {
-    domain_signing_selector = local.dkim_key
+    domain_signing_selector    = local.dkim_key
     domain_signing_private_key = var.dkim_private_key
   }
 }
