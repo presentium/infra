@@ -31,12 +31,24 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_ARN }}
 
-      - name: Login to vault
-        uses: hashicorp/vault-action
+      - name: Login to vault (read-only)
+        if: ${{ github.ref_name != 'main' }}
+        uses: hashicorp/vault-action@v2
         with:
           url: ${{ env.VAULT_ADDR }}
           method: jwt
           path: jwt-github-actions
+          role: github-actions-read-only
+          exportToken: true
+
+      - name: Login to vault (admin)
+        if: ${{ github.ref_name == 'main' }}
+        uses: hashicorp/vault-action@v2
+        with:
+          url: ${{ env.VAULT_ADDR }}
+          method: jwt
+          path: jwt-github-actions
+          role: github-actions-admin
           exportToken: true
 
       - name: Add environment variables
