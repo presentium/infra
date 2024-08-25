@@ -26,6 +26,8 @@ resource "vault_jwt_auth_backend_role" "jwt-github-actions-admin" {
     head_ref   = "main"
     repository = "presentium/infrastructure"
   }
+  bound_audiences = ["https://github.com/presentium"]
+  bound_claims_type = "string"
   user_claim = "actor"
   role_type  = "jwt"
   token_ttl  = 3600 # 1 hour
@@ -39,6 +41,8 @@ resource "vault_jwt_auth_backend_role" "jwt-github-actions-read-only" {
   bound_claims = {
     repository = "presentium/infrastructure"
   }
+  bound_audiences = ["https://github.com/presentium"]
+  bound_claims_type = "string"
   user_claim = "actor"
   role_type  = "jwt"
   token_ttl  = 3600 # 1 hour
