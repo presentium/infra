@@ -15,8 +15,8 @@ resource "vault_pki_secret_backend_intermediate_cert_request" "servers_intermedi
   common_name        = "${var.organization} Servers Intermediate Certificate"
   format             = "pem"
   private_key_format = "der"
-  key_type           = "ed25519"
-  key_bits           = "0" # not used for ed25519
+  key_type           = "ec"
+  key_bits           = "256"
 }
 
 #

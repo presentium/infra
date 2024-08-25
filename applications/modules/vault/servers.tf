@@ -11,7 +11,8 @@ resource "vault_pki_secret_backend_role" "role-servers" {
   allow_localhost             = false
   allow_ip_sans               = false
 
-  key_type = "ed25519"
+  key_type = "ec"
+  key_bits = 256
 
   server_flag = true
   client_flag = false

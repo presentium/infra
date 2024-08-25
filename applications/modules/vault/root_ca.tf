@@ -1,6 +1,7 @@
 # Create a private key for use with the Root CA.
 resource "tls_private_key" "ca_key" {
-  algorithm = "ED25519"
+  algorithm   = "ECDSA"
+  ecdsa_curve = "P256"
 }
 
 # 
