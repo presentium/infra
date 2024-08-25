@@ -19,7 +19,7 @@ resource "vault_jwt_auth_backend_role" "jwt-github-actions-admin" {
   token_policies = ["admin"]
 
   bound_claims = {
-    head_ref   = "main"
+    head_ref   = "main,production"
     repository = "presentium/infrastructure"
   }
   bound_audiences   = ["https://github.com/presentium"]

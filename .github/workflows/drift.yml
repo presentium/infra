@@ -19,6 +19,10 @@ jobs:
         branch: [ production ]
         context: [ infrastructure, applications ]
 
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      VAULT_ADDR: "https://vault.presentium.ch"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,6 +34,15 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ vars.AWS_ARN }}
+
+      - name: Login to vault
+        uses: hashicorp/vault-action@v3
+        with:
+          url: ${{ env.VAULT_ADDR }}
+          method: jwt
+          path: jwt-github-actions
+          role: github-actions-read-only
+          exportToken: true
 
       - name: Add environment variables
         shell: bash
