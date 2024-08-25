@@ -26,11 +26,12 @@ jobs:
           role-to-assume: ${{ vars.AWS_ARN }}
 
       - name: Login to vault
-        uses: hashicorp/vault-action
+        uses: hashicorp/vault-action@v3
         with:
           url: ${{ env.VAULT_ADDR }}
           method: jwt
           path: jwt-github-actions
+          role: github-actions-admin
           exportToken: true
 
       - name: Add environment variables

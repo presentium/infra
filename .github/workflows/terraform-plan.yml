@@ -33,7 +33,7 @@ jobs:
 
       - name: Login to vault (read-only)
         if: ${{ github.ref_name != 'main' }}
-        uses: hashicorp/vault-action@v2
+        uses: hashicorp/vault-action@v3
         with:
           url: ${{ env.VAULT_ADDR }}
           method: jwt
@@ -42,8 +42,8 @@ jobs:
           exportToken: true
 
       - name: Login to vault (admin)
-        if: ${{ github.ref_name == 'main' }}
-        uses: hashicorp/vault-action@v2
+        if: ${{ github.ref_name == 'main' || github.ref_name == 'production' }}
+        uses: hashicorp/vault-action@v3
         with:
           url: ${{ env.VAULT_ADDR }}
           method: jwt
