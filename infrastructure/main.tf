@@ -62,6 +62,9 @@ module "ses" {
   }
 
   cloudflare_domain = module.cloudflare.domain
+
+  dkim_public_key  = var.dkim_public_key
+  dkim_private_key = var.dkim_private_key
 }
 
 ## Cloudflare

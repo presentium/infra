@@ -1,10 +1,8 @@
-resource "cloudflare_record" "ses_dkim" {
-  count = 3
-
+resource "cloudflare_record" "presentium_ses_dkim" {
   zone_id = data.cloudflare_zone.this.id
-  name    = "${element(aws_sesv2_email_identity.domain.dkim_signing_attributes[0].tokens, count.index)}._domainkey"
-  type    = "CNAME"
-  content = "${element(aws_sesv2_email_identity.domain.dkim_signing_attributes[0].tokens, count.index)}.dkim.amazonses.com"
+  name    = "${local.dkim_key}._domainkey"
+  type    = "TXT"
+  content = "p=${trimspace(var.dkim_public_key)}"
   ttl     = 60
   proxied = false
 
