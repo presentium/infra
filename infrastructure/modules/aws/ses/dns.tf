@@ -2,7 +2,7 @@ resource "cloudflare_record" "presentium_ses_dkim" {
   zone_id = data.cloudflare_zone.this.id
   name    = "${local.dkim_key}._domainkey"
   type    = "TXT"
-  content = "p=${trimspace(var.dkim_public_key)}"
+  content = "v=DKIM1; p=${trimspace(var.dkim_public_key)}"
   ttl     = 60
   proxied = false
 
