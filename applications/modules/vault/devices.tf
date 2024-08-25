@@ -27,7 +27,7 @@ resource "vault_pki_secret_backend_role" "role-devices" {
 resource "vault_policy" "devices-policy" {
   name   = "devices-${var.domain}"
   policy = <<EOF
-    path "pki_int/issue/devices-${var.domain}" {
+    path "pki-int-ca/issue/devices-${var.domain}" {
       capabilities = [ "update" ]
     }
   EOF
