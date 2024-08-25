@@ -20,8 +20,8 @@ resource "vault_pki_secret_backend_role" "role-devices" {
   ou           = ["Devices"]
   organization = [var.organization]
   country      = [var.country]
-  max_ttl      = "8760h"
-  ttl          = "720h"
+  max_ttl      = "31536000" #8760h
+  ttl          = "2592000"  #720h
 }
 
 resource "vault_policy" "devices-policy" {
