@@ -4,7 +4,7 @@ resource "vault_pki_secret_backend_role" "role-servers" {
 
   name = "servers-${var.domain}"
 
-  allowed_domains             = ["api.${var.domain}"]
+  allowed_domains             = ["api.${var.domain}", "staging-api.${var.domain}"]
   allow_bare_domains          = true
   allow_subdomains            = false
   allow_wildcard_certificates = false
