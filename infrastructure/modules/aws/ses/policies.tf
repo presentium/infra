@@ -3,6 +3,12 @@ data "aws_iam_policy_document" "ses_sender" {
     sid       = "AllowSendingMail"
     effect    = "Allow"
     actions   = ["ses:SendRawEmail"]
-    resources = [aws_sesv2_email_identity.domain.arn]
+    resources = ["*"]
   }
+}
+
+resource "aws_iam_policy" "ses_sender" {
+  name        = "PRES-SES-SENDERPOLICY"
+  description = "Allows sending emails through SES"
+  policy      = data.aws_iam_policy_document.ses_sender.json
 }
