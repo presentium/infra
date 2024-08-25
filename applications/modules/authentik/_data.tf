@@ -25,3 +25,7 @@ data "authentik_scope_mapping" "scope-offline-access" {
   scope_name = "offline_access"
   name       = "authentik default OAuth Mapping: OpenID 'offline_access'"
 }
+
+data "authentik_certificate_key_pair" "generated" {
+  name = "authentik Self-signed Certificate"
+}

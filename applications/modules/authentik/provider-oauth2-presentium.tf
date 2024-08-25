@@ -9,15 +9,18 @@ resource "authentik_provider_oauth2" "presentium" {
     "https://staging.presentium.ch/auth/oidc/callback",           # Staging domain
     "https://dashboard-presentium.nuxt.dev/auth/oidc/callback",   # NuxtHub domain
     "https://[\\w-]+.dashboard-1as.pages.dev/auth/oidc/callback", # PR / preview domains
+    "^http://localhost:\\d+/.*",                                  # Localhost
   ]
 
   property_mappings = [
     data.authentik_scope_mapping.scope-email.id,
     data.authentik_scope_mapping.scope-profile.id,
     data.authentik_scope_mapping.scope-openid.id,
-    data.authentik_scope_mapping.scope-offline-access.id,
     authentik_scope_mapping.scope-roles.id,
+    data.authentik_scope_mapping.scope-offline-access.id,
   ]
+
+  signing_key = data.authentik_certificate_key_pair.generated.id
 }
 
 resource "authentik_application" "presentium" {

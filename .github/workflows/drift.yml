@@ -38,6 +38,6 @@ jobs:
           echo "${{ secrets.APPLICATIONS_TFVARS }}" | base64 -d > applications/secrets.auto.tfvars
 
       - name: Check for drift
-        uses: dflook/terraform-check@v1
+        uses: ./.github/actions/terraform-check
         with:
           path: ${{ matrix.context }}
