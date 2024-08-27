@@ -27,7 +27,7 @@ resource "vault_pki_secret_backend_role" "role-registration" {
 resource "vault_policy" "registration-policy" {
   name   = "registration-${var.domain}"
   policy = <<EOF
-    path "pki_int/issue/registration-${var.domain}" {
+    path "pki-int-ca/issue/registration-${var.domain}" {
       capabilities = [ "update" ]
     }
   EOF

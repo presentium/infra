@@ -17,5 +17,5 @@ resource "vault_kubernetes_auth_backend_role" "presentium_api" {
   bound_service_account_namespaces = ["staging-presentium", "prod-presentium"]
 
   token_ttl      = 3600
-  token_policies = ["servers"]
+  token_policies = [vault_policy.servers-policy.name]
 }

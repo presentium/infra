@@ -27,7 +27,7 @@ resource "vault_pki_secret_backend_role" "role-servers" {
 resource "vault_policy" "servers-policy" {
   name   = "servers-${var.domain}"
   policy = <<EOF
-    path "pki_int/issue/servers-${var.domain}" {
+    path "pki-int-ca/issue/servers-${var.domain}" {
       capabilities = [ "update" ]
     }
   EOF
