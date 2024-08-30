@@ -15,7 +15,11 @@ resource "vault_pki_secret_backend_role" "role-registration" {
   key_bits = 256
 
   server_flag = false
-  client_flag = false
+  client_flag = true
+
+  generate_lease = true
+
+  ext_key_usage = ["ClientAuth"]
 
   ou           = ["Registration"]
   organization = [var.organization]

@@ -9,7 +9,7 @@ resource "vault_cert_auth_backend_role" "registration-cert" {
 
   certificate                  = vault_pki_secret_backend_intermediate_set_signed.registration_intermediate.certificate
   allowed_organizational_units = ["Registration"]
-  allowed_names                = ["registration.${var.domain}"]
+  allowed_common_names         = ["registration.${var.domain}"]
 
   token_ttl      = 300
   token_max_ttl  = 600
