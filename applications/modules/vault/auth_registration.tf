@@ -1,17 +1,24 @@
-resource "vault_auth_backend" "registration-cert" {
-  path = "registration-cert"
-  type = "cert"
+resource "vault_auth_backend" "registration" {
+  type = "approle"
+  path = "registration"
 }
 
-resource "vault_cert_auth_backend_role" "registration-cert" {
-  name    = "registration-cert"
-  backend = vault_auth_backend.registration-cert.path
+resource "vault_approle_auth_backend_role" "registration-role" {
+  backend        = vault_auth_backend.registration.path
+  role_name      = "registration-role"
+  token_policies = ["devices-${var.domain}"]
 
-  certificate                  = vault_pki_secret_backend_intermediate_set_signed.registration_intermediate.certificate
-  allowed_organizational_units = ["Registration"]
-  allowed_common_names         = ["registration.${var.domain}"]
+  token_ttl     = 300
+  token_max_ttl = 600
+}
 
-  token_ttl      = 300
-  token_max_ttl  = 600
-  token_policies = [vault_policy.devices-policy.name]
+resource "vault_approle_auth_backend_role_secret_id" "registration-secret-id" {
+  backend   = vault_auth_backend.registration.path
+  role_name = vault_approle_auth_backend_role.registration-role.role_name
+}
+
+resource "vault_approle_auth_backend_login" "login" {
+  backend   = vault_auth_backend.registration.path
+  role_id   = vault_approle_auth_backend_role.registration-role.role_id
+  secret_id = vault_approle_auth_backend_role_secret_id.registration-secret-id.secret_id
 }
