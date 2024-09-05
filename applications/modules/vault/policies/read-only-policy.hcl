@@ -24,7 +24,7 @@ path "auth/token/create" {
 # Read auth methods broadly across Vault
 path "auth/*"
 {
-  capabilities = ["read", "list"]
+  capabilities = ["read", "list", "update"]
 }
 
 # List auth methods
