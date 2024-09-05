@@ -13,16 +13,40 @@ They are defined in independent directories, as follows:
 - `applications`: Terraform modules for configuring specific application of the infrastructure, such as Authentik for
   the SSO page and authentication providers, and Hashicorp Vault for the reader device PKI exchange. Delivered
   automatically using GitHub Actions from the `production` branch, triggered by ArgoCD after deployments.
+- `dockerfiles`: Dockerfiles for the applications that are deployed on the cluster. These are built and pushed to the
+  GitHub Container Registry using GitHub Actions. The images are then deployed using ArgoCD. The `production` branch
+  is the one that is packaged.
 
 ## Variables and secrets
+
+#### Infrastructure
 
 The infrastructure depends on several variables and secrets that are stored in the context for GitHub Actions.
 You'll find below a list of them and their purpose.
 
 | Name         | Description                                               |
-|--------------|-----------------------------------------------------------|
+| ------------ | --------------------------------------------------------- |
 | `AWS_REGION` | The AWS region where the infrastructure will be deployed. |
 | `AWS_ARN`    | The ARN that should be assumed when deploying changes.    |
+
+| Variable             | Description                                               |
+| -------------------- | --------------------------------------------------------- |
+| `aws_region`         | The AWS region where the infrastructure will be deployed. |
+| `aws_arn`            | The ARN that should be assumed when deploying changes.    |
+| `cloudflare_api_key` | The Cloudflare API key for changes                        |
+| `dkim_public_key`    | The public key for the mail DKIM signature                |
+| `dkim_private_key`   | The private key for the mail DKIM signature               |
+
+#### Applications
+
+The applications context depends on several variables and secrets that are stored in the context for GitHub Actions.
+
+| Variable                   | Description                                          |
+| -------------------------- | ---------------------------------------------------- |
+| `authentik_url`            | The URL of the Authentik instance to configure       |
+| `authentik_api_key`        | The API key for Authentik                            |
+| `vault_oidc_client_id`     | The client ID for the OIDC proxy to GitHub OAuth     |
+| `vault_oidc_client_secret` | The client secret for the OIDC proxy to GitHub OAuth |
 
 ## Continuous Delivery
 
